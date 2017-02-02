@@ -5,7 +5,7 @@ import Tasks from './components/Tasks';
 import AddTask from './components/AddTask'
 import './App.css';
 
-
+const APIKEY = '';
 
 
 class App extends Component {
@@ -24,10 +24,10 @@ constructor(){
   getTasks(){
     axios.request({
       method:'get',
-      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks?apiKey=V8W1gxSWQqO2cUp_fxcUsX3oXKS8cN0V'
+      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks?apiKey='+APIKEY
     }).then((response) => {
       this.setState({tasks: response.data}, () => {
-        console.log(this.state);
+        
       });
     }).catch((error) => {
       console.log(error);
@@ -37,7 +37,7 @@ constructor(){
   addTask(text){
     axios.request({
       method:'post',
-      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks?apiKey=V8W1gxSWQqO2cUp_fxcUsX3oXKS8cN0V',
+      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks?apiKey='+APIKEY,
       data: {
         text : text,
         completed : false
@@ -58,7 +58,7 @@ constructor(){
   editState(task, checked){
     axios.request({
       method:'put',
-      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks/'+task._id.$oid+'?apiKey=V8W1gxSWQqO2cUp_fxcUsX3oXKS8cN0V',
+      url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks/'+task._id.$oid+'?apiKey='+APIKEY,
       data: {
         text : task.text,
         completed : checked
@@ -84,7 +84,7 @@ constructor(){
         tasks.splice(i,1);
         axios.request({
         method:'delete',
-        url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks/'+id+'?apiKey=V8W1gxSWQqO2cUp_fxcUsX3oXKS8cN0V'
+        url:'https://api.mlab.com/api/1/databases/reacttasks/collections/tasks/'+id+'?apiKey='+APIKEY
       }).then((response) => {
         
       }).catch((error) => {
